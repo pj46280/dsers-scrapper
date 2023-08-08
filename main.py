@@ -58,6 +58,24 @@ def scrape(url, no_variants):
     except KeyError as er:
         print('Token needs to be refreshed')
 
+def handle_formating(data):
+    """Handle formating by keeping Sales Variant Option Name rows on top"""
+    indices = []
+    output = []
+    
+    for i in range(len(data)):
+        if data[i]['Sales Variant Option Name'] != '':
+            indices.append(i)
+
+    for i in range(len(data)):
+        if i in indices:
+            output.append(data[i])
+    for i in range(len(data)):
+        if i not in indices:
+            output.append(data[i])
+
+    return output
+
 
 def main(sales_order_number, sales_variant_option_name, url):
     # get all product details for given url
@@ -139,6 +157,9 @@ def main(sales_order_number, sales_variant_option_name, url):
                 product['Duplicate variant names in Dser (all variant columns)'] = 'Duplicate Names'
             else:
                 product['Duplicate variant names in Dser (all variant columns)'] = ''
+
+        print('\thandle_formating')
+        output = handle_formating(output)
 
     # No variant name
     else:
