@@ -33,6 +33,4 @@ python main.py
 
 ## Data
 
-In the `main.py` on line no. 170, change the `details` list accordingly to extract data of choice
-
-Product url must be provided in the `details` list, rest of the data is for user's ease of use and formatting.
+Check format of "input.xlsx" for better understading of the main script

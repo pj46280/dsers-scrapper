@@ -1,5 +1,6 @@
 from seleniumwire import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 import time
 import json
 import configparser
@@ -16,7 +17,9 @@ def get_auth_token():
     PASSWORD_XPATH = '/html/body/div[1]/div[2]/div[2]/div/div/div[4]/div/div/div/div/div/form/div[2]/div/div/div/span/div/div/div/span/input'
     LOGIN_XPATH = '/html/body/div[1]/div[2]/div[2]/div/div/div[4]/div/div/div/div/div/form/div[3]/div/div/span/button'
 
-    driver = webdriver.Firefox()
+    options = Options()
+    options.add_argument('--headless')
+    driver = webdriver.Chrome(options=options)
     print('BOT:-')
     print('\tLoggin in...')
     driver.get(LOGIN_URL)

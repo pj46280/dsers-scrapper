@@ -188,16 +188,27 @@ if __name__ == "__main__":
     BASE_URL = 'https://ac.dsers.com/api/v1/prod/ali?url='
 
     # provided attributes
-    details = [
-        ['987654', 'RED', 'https://www.aliexpress.com/item/1005005231485559.html'],
-        ['123', 'Warm White, DC12V', 'https://www.aliexpress.com/item/32859100702.html'],
-        ['456', 'For GoPro', 'https://www.aliexpress.com/item/10000377765814.html'],
-        ['46', '1 SET', 'https://www.aliexpress.com/item/1005003591027724.html'],
-        ['554546', 'China', 'https://www.aliexpress.com/item/4000401603675.html'],
-        ['1465', '19-21mm', 'https://www.aliexpress.com/item/1005003676275417.html'],
-        ['12121', 'APMT1604 M2 VP15TF, 10PCS(1BOX)', 'https://www.aliexpress.com/item/1005003335129185.html'],
-        ['134564', '', 'https://www.aliexpress.com/item/32883178767.html?spm=a2g0o.order_list.order_list_main.60.21ef1802u6BABo']
-    ]
+    try:
+        input_df = pd.read_excel('input.xlsx')
+        details = []
+        for i in range(len(input_df)):
+            sales_order_numbers = input_df.loc[i, 'Sales Order Number']
+            sales_variant_option_names = input_df.loc[i, 'Sales Variant Option Name']
+            product_urls = input_df.loc[i, 'Product URL']
+
+            details.append([sales_order_numbers, sales_variant_option_names, product_urls])
+    except FileNotFoundError:
+        print('Not input file:- "input.xlsx"')
+    # details = [
+    #     ['987654', 'RED', 'https://www.aliexpress.com/item/1005005231485559.html'],
+    #     ['123', 'Warm White, DC12V', 'https://www.aliexpress.com/item/32859100702.html'],
+    #     ['456', 'For GoPro', 'https://www.aliexpress.com/item/10000377765814.html'],
+    #     ['46', '1 SET', 'https://www.aliexpress.com/item/1005003591027724.html'],
+    #     ['554546', 'China', 'https://www.aliexpress.com/item/4000401603675.html'],
+    #     ['1465', '19-21mm', 'https://www.aliexpress.com/item/1005003676275417.html'],
+    #     ['12121', 'APMT1604 M2 VP15TF, 10PCS(1BOX)', 'https://www.aliexpress.com/item/1005003335129185.html'],
+    #     ['134564', '', 'https://www.aliexpress.com/item/32883178767.html?spm=a2g0o.order_list.order_list_main.60.21ef1802u6BABo']
+    # ]
 
     data = []
     for obj in details:
