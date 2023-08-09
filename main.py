@@ -192,13 +192,19 @@ if __name__ == "__main__":
         input_df = pd.read_excel('input.xlsx')
         details = []
         for i in range(len(input_df)):
-            sales_order_numbers = input_df.loc[i, 'Sales Order Number']
-            sales_variant_option_names = input_df.loc[i, 'Sales Variant Option Name']
-            product_urls = input_df.loc[i, 'Product URL']
+            sales_order_number = input_df.loc[i, 'Sales Order Number']
+            sales_variant_option_name = input_df.loc[i, 'Sales Variant Option Name']
+            product_url = input_df.loc[i, 'Product URL']
 
-            details.append([sales_order_numbers, sales_variant_option_names, product_urls])
+            # Handling empty columns
+            if isinstance(sales_variant_option_name, str):
+                details.append([sales_order_number, sales_variant_option_name, product_url])
+            else:
+                details.append([sales_order_number, '', product_url])
+
     except FileNotFoundError:
         print('Not input file:- "input.xlsx"')
+        exit()
     # details = [
     #     ['987654', 'RED', 'https://www.aliexpress.com/item/1005005231485559.html'],
     #     ['123', 'Warm White, DC12V', 'https://www.aliexpress.com/item/32859100702.html'],
